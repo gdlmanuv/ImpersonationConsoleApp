@@ -11,9 +11,9 @@ namespace ImpersonationConsoleApp
 {
     class Program
     {
-        private const string USER_NAME = "sac_fa_ffown";
-        private const string PASSWORD = "6H#$9re2W$$W#__wW_#r";
-        private const string DOMAIN = "AMERICAS";
+        private const string USER_NAME = "";
+        private const string PASSWORD = "";
+        private const string DOMAIN = "";
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
