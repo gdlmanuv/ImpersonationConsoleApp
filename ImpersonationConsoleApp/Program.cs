@@ -19,6 +19,8 @@ namespace ImpersonationConsoleApp
 
         static void Main(string[] args)
         {
+            DateTime overallStartedTime;
+            DateTime overallEndedTime;
             DateTime impersonationStarted;
             DateTime impersonationEnded;
             TimeSpan diff;
@@ -27,6 +29,8 @@ namespace ImpersonationConsoleApp
             {
                 if (int.TryParse(ConfigurationManager.AppSettings["totalImpersonationsByExecution"], out int totalImpersonations))
                 {
+                    overallStartedTime = DateTime.Now;
+
                     for (int i = 0; i < totalImpersonations; i++)
                     {
                         impersonationStarted = DateTime.Now;
@@ -43,6 +47,12 @@ namespace ImpersonationConsoleApp
                             $"ended at: {impersonationEnded.ToString("hh:mm:ss.fff")}. ",
                             $"Process took {Math.Round(diff.TotalMilliseconds)} miliseconds."));
                     }
+
+                    overallEndedTime = DateTime.Now;
+
+                    diff = overallEndedTime - overallStartedTime;
+
+                    Logger.Info(string.Concat($"Process completed in {Math.Round(diff.TotalMilliseconds)} miliseconds."));
                 }
                 else
                 {
