@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Core\Impersonator.cs" />
     <Compile Include="Core\Impersonator.Interop.cs" />
+    <Compile Include="Core\Persistance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
