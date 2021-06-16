@@ -3,6 +3,7 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace ImpersonationConsoleApp
                         using (Impersonator impersonator = new Impersonator(USER_NAME, DOMAIN, PASSWORD))
                         {
                             impersonationEnded = DateTime.Now;
+                            ExecuteDatabaseConnection();
                         }
 
                         diff = impersonationEnded - impersonationStarted;
@@ -62,6 +64,28 @@ namespace ImpersonationConsoleApp
             catch (Exception ex)
             {
                 Logger.Error(ex);
+            }
+            finally
+            {
+                Console.ReadKey();
+            }
+        }
+
+        private static void ExecuteDatabaseConnection()
+        {
+            using (var dbConn = new SqlConnection("Server=<SERVER>;Database=<DATABASE>;Integrated Security=SSPI;"))
+            {
+                using (var cmd = new SqlCommand("SELECT TOP 10 * FROM ffSerialNumber", dbConn))
+                {
+                    dbConn.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            Console.WriteLine(reader["Value"].ToString());
+                        }
+                    }
+                }
             }
         }
     }
